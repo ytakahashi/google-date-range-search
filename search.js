@@ -7,7 +7,8 @@ const setTbsParameter = (currentUrl, value) => {
 }
 
 const onclickHandler = (value) => {
-  chrome.tabs.query({ active: true }, function (tabs) {
+  // https://stackoverflow.com/a/17826527
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     if (tabs.length === 0) {
       return
     }
@@ -18,32 +19,37 @@ const onclickHandler = (value) => {
 }
 
 // https://support.google.com/websearch/thread/7860817?hl=en
-const itm1 = document.getElementById('past-hour');
-itm1.onclick = () => {
+const allTime = document.getElementById('all-time');
+allTime.onclick = () => {
+  onclickHandler('qdr:a')
+}
+
+const pastHour = document.getElementById('past-hour');
+pastHour.onclick = () => {
    onclickHandler('qdr:h')
 }
 
-const itm2 = document.getElementById('past-day');
-itm2.onclick = () => {
+const pastDay = document.getElementById('past-day');
+pastDay.onclick = () => {
   onclickHandler('qdr:d')
 }
 
-const itm3 = document.getElementById('past-week');
-itm3.onclick = () => {
+const pastWeek = document.getElementById('past-week');
+pastWeek.onclick = () => {
   onclickHandler('qdr:w')
 }
 
-const itm4 = document.getElementById('past-month');
-itm4.onclick = () => {
+const pastMonth = document.getElementById('past-month');
+pastMonth.onclick = () => {
   onclickHandler('qdr:m')
 }
 
-const itm5 = document.getElementById('past-6months');
-itm5.onclick = () => {
+const past6Month = document.getElementById('past-6months');
+past6Month.onclick = () => {
   onclickHandler('qdr:m6')
 }
 
-const itm6 = document.getElementById('past-year');
-itm6.onclick = () => {
+const pastYear = document.getElementById('past-year');
+pastYear.onclick = () => {
   onclickHandler('qdr:y')
 }
