@@ -4,12 +4,18 @@
   "description": "Google date range search extension.",
   "manifest_version": 2,
   "permissions": [
-    "activeTab"
+    "tabs"
   ],
-  "browser_action": {
+  "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "32": "images/icon.png"
     }
+  },
+  "background": {
+    "scripts": [
+      "script.js"
+    ],
+    "persistent": false
   }
 }
