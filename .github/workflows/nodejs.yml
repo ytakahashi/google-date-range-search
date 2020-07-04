@@ -1,0 +1,23 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: create zip package
+      run: |
+        npm ci
+        npm run webpack
+        npm run zip
+    - name: Archive generated package
+      uses: actions/upload-artifact@v1
+      with:
+        name: pack.zip
+        path: pack.zip
