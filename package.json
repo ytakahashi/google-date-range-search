@@ -1,0 +1,31 @@
+{
+  "name": "google-date-range-search",
+  "description": "Google date range search extension",
+  "version": "0.1.0",
+  "author": "ytakahashi",
+  "bugs": {
+    "url": "https://github.com/ytakahashi/google-date-range-search/issues"
+  },
+  "dependencies": {
+    "webextension-polyfill-ts": "^0.19.0"
+  },
+  "devDependencies": {
+    "@types/copy-webpack-plugin": "^6.0.0",
+    "@types/webpack": "^4.41.18",
+    "copy-webpack-plugin": "^6.0.3",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "homepage": "https://github.com/ytakahashi/google-date-range-search#readme",
+  "license": "Apache License 2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ytakahashi/google-date-range-search.git"
+  },
+  "scripts": {
+    "webpack": "webpack"
+  }
+}
