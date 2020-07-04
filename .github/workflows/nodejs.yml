@@ -11,13 +11,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - name: create zip package
+    - name: create dist files
       run: |
         npm ci
         npm run webpack
-        npm run zip
-    - name: Archive generated package
+    - name: Archive generated files
       uses: actions/upload-artifact@v1
       with:
-        name: pack.zip
-        path: pack.zip
+        name: dist
+        path: dist

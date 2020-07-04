@@ -26,7 +26,6 @@
     "url": "git+ssh://git@github.com/ytakahashi/google-date-range-search.git"
   },
   "scripts": {
-    "webpack": "webpack",
-    "zip": "zip -r pack.zip dist"
+    "webpack": "webpack"
   }
 }
