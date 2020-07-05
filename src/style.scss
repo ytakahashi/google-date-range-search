@@ -1,24 +1,33 @@
+$baseColor: #ffb8b8;
+$lightColor: #fff1f1;
+$darkColor: #b07f7f;
+
 body {
-    min-width: 160px;
+  min-width: 140px;
+  background: #ffb8b8;
 }
 
 .btn {
   width: 90%;
   text-align: center;
-  border: 2px solid #9ec34b;
-  color: #9ec34b;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 16px;
-  margin-top: 2%;
+  margin-top: 6%;
   margin-left: 5%;
   margin-right: 5%;
-  border-radius: 4px;
-  transition: .4s;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  background: $baseColor;
+  box-shadow: 2px 2px 4px $darkColor,
+              -2px -2px 4px $lightColor;
 
   &:hover {
-    background-color: #9ec34b;
-    border-color: #cbe585;
-    color: #FFF;
+    box-shadow: 4px 4px 6px $darkColor,
+                -4px -4px 6px $lightColor;
+  }
+
+  &:active {
+    box-shadow: inset 2px 2px 4px $darkColor,
+                inset -2px -2px 4px $lightColor;
   }
 }
