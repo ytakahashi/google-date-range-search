@@ -15,10 +15,10 @@ body {
   margin-right: 5%;
   border-radius: 4px;
   transition: .4s;
-}
 
-.btn:hover {
-  background-color: #9ec34b;
-  border-color: #cbe585;
-  color: #FFF;
+  &:hover {
+    background-color: #9ec34b;
+    border-color: #cbe585;
+    color: #FFF;
+  }
 }

@@ -1,5 +1,6 @@
 import { ConfigurationFactory } from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
 const config: ConfigurationFactory = () => {
@@ -18,26 +19,28 @@ const config: ConfigurationFactory = () => {
         {
           test: /.ts$/,
           use: 'ts-loader',
-          exclude: '/node_modules/'
-        }
-      ]
+          exclude: '/node_modules/',
+        },
+        {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
+        },
+      ],
     },
     plugins: [
-      new CopyWebpackPlugin(
-        {
-          patterns: [
-            {
-              from: '*.html', to: '.', context: 'src'
-            },
-            {
-              from: '*.css', to: '.', context: 'src'
-            },
-            {
-              from: 'public', to: '.'
-            },
-          ],
-        }
-      ),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: 'public',
+            to: '.',
+          },
+        ],
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'popup.html',
+        template: './src/popup.html',
+        chunks: ['search'],
+      }),
     ],
   }
 }
