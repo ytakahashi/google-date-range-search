@@ -1,0 +1,33 @@
+$baseColor: #ffb8b8;
+$lightColor: #fff1f1;
+$darkColor: #b07f7f;
+
+body {
+  min-width: 140px;
+  background: #ffb8b8;
+}
+
+.btn {
+  width: 90%;
+  text-align: center;
+  margin-top: 6%;
+  margin-left: 5%;
+  margin-right: 5%;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  background: $baseColor;
+  box-shadow: 2px 2px 4px $darkColor,
+              -2px -2px 4px $lightColor;
+
+  &:hover {
+    box-shadow: 4px 4px 6px $darkColor,
+                -4px -4px 6px $lightColor;
+  }
+
+  &:active {
+    box-shadow: inset 2px 2px 4px $darkColor,
+                inset -2px -2px 4px $lightColor;
+  }
+}

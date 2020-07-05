@@ -14,6 +14,7 @@ jobs:
     - name: create dist files
       run: |
         npm ci
+        npm run lint:prettier-check
         npm run webpack
     - name: Archive generated files
       uses: actions/upload-artifact@v1
