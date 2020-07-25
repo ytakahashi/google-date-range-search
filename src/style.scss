@@ -3,7 +3,7 @@ $lightColor: #fff1f1;
 $darkColor: #b07f7f;
 
 body {
-  min-width: 140px;
+  min-width: 200px;
   background: #ffb8b8;
 }
 
@@ -18,16 +18,79 @@ body {
   outline: none;
   border-radius: 2px;
   background: $baseColor;
-  box-shadow: 2px 2px 4px $darkColor,
-              -2px -2px 4px $lightColor;
+  box-shadow: 2px 2px 4px $darkColor, -2px -2px 4px $lightColor;
 
   &:hover {
-    box-shadow: 4px 4px 6px $darkColor,
-                -4px -4px 6px $lightColor;
+    box-shadow: 4px 4px 6px $darkColor, -4px -4px 6px $lightColor;
   }
 
   &:active {
-    box-shadow: inset 2px 2px 4px $darkColor,
-                inset -2px -2px 4px $lightColor;
+    box-shadow: inset 2px 2px 4px $darkColor, inset -2px -2px 4px $lightColor;
   }
+}
+
+$tab-color: #a22041;
+
+.tab {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8% 0 5% 0;
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background: $tab-color;
+    display: block;
+    order: -1;
+  }
+}
+
+.tab-label {
+  position: relative;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #dcd6d9;
+  font-weight: bold;
+  text-align: center;
+  padding: 3%;
+  order: -1;
+  border-radius: 5px 5px 0 0;
+  flex: 1;
+}
+
+.tab-content {
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.tab-page {
+  display: none;
+
+  &:checked + .tab-label {
+    background: $tab-color;
+    margin-top: -0.3rem;
+    transition: margin 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & + .tab-content {
+      height: auto;
+      padding: 7%;
+      opacity: 1;
+      transition: 0.5s opacity;
+      box-shadow: 0 0 3px $darkColor;
+    }
+  }
+}
+
+.calendar-label {
+  font-weight: bold;
+}
+
+.calendar {
+  margin: 3% auto;
 }
