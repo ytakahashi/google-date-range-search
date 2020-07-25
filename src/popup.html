@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <button type="button" id="all-time" class="btn">all time</button>
-    <button type="button" id="past-hour" class="btn">past hour</button>
-    <button type="button" id="past-day" class="btn">past day</button>
-    <button type="button" id="past-week" class="btn">past week</button>
-    <button type="button" id="past-month" class="btn">past month</button>
-    <button type="button" id="past-6months" class="btn">past 6 months</button>
-    <button type="button" id="past-year" class="btn">past year</button>
+    <div class="tab">
+      <input id="preset" type="radio" name="tab" class="tab-page" checked />
+      <label class="tab-label" for="preset">
+        Preset Range
+      </label>
+      <div class="tab-content">
+        <button type="button" id="all-time" class="btn">
+          all time
+        </button>
+        <button type="button" id="past-hour" class="btn">
+          past hour
+        </button>
+        <button type="button" id="past-day" class="btn">
+          past day
+        </button>
+        <button type="button" id="past-week" class="btn">
+          past week
+        </button>
+        <button type="button" id="past-month" class="btn">
+          past month
+        </button>
+        <button type="button" id="past-6months" class="btn">
+          past 6 months
+        </button>
+        <button type="button" id="past-year" class="btn">past year</button>
+      </div>
+
+      <input id="custom" type="radio" name="tab" class="tab-page" />
+      <label class="tab-label" for="custom">
+        Custom Range
+      </label>
+      <div class="tab-content">
+        <div class="calendar">
+          <label class="calendar-label">
+            From:
+            <input type="date" id="from-date" />
+          </label>
+        </div>
+        <div class="calendar">
+          <label class="calendar-label">
+            To:
+            <input type="date" id="to-date" />
+          </label>
+        </div>
+        <button type="button" id="calendar-search" class="btn">Go</button>
+      </div>
+    </div>
   </body>
 </html>
