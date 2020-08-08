@@ -4,7 +4,7 @@
     <div class="tab">
       <input id="preset" type="radio" name="tab" class="tab-page" checked />
       <label class="tab-label" for="preset">
-        Preset Range
+        Preset
       </label>
       <div class="tab-content">
         <button type="button" id="all-time" class="btn">
@@ -30,7 +30,28 @@
 
       <input id="custom" type="radio" name="tab" class="tab-page" />
       <label class="tab-label" for="custom">
-        Custom Range
+        Custom
+      </label>
+      <div class="tab-content">
+        <div class="custom-input-form">
+          <form>
+            Past
+            <input id="date-range-value" type="number" value="1" />
+            <select id="date-unit" name="date-unit">
+              <option value="h">hour</option>
+              <option value="d">day</option>
+              <option value="w">week</option>
+              <option value="m">month</option>
+              <option value="y" selected>year</option>
+            </select>
+          </form>
+          <button type="button" id="custom-search" class="btn">Go</button>
+        </div>
+      </div>
+
+      <input id="calendar" type="radio" name="tab" class="tab-page" />
+      <label class="tab-label" for="calendar">
+        Calendar
       </label>
       <div class="tab-content">
         <div class="calendar">

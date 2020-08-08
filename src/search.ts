@@ -87,3 +87,29 @@ const setCalendarOnclickHandler = () => {
 setToday('from-date')
 setToday('to-date')
 setCalendarOnclickHandler()
+
+const setCustomRangeFormClickHandler = () => {
+  const element = document.getElementById('custom-search')
+  if (element == null) {
+    return
+  }
+
+  element.onclick = () => {
+    const valueElement: HTMLInputElement = <HTMLInputElement>(
+      document.getElementById('date-range-value')
+    )
+    const unitElement: HTMLInputElement = <HTMLInputElement>(
+      document.getElementById('date-unit')
+    )
+
+    const v = valueElement.valueAsNumber
+    const unit = unitElement.value
+    if (v === null || unit === null) {
+      return
+    }
+
+    const value = `qdr:${unit}${v}`
+    updateTabUrl(value)
+  }
+}
+setCustomRangeFormClickHandler()
