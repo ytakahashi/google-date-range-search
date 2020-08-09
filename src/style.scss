@@ -50,7 +50,7 @@ $tab-color: #a22041;
   position: relative;
   cursor: pointer;
   color: #ffffff;
-  background-color: #dcd6d9;
+  background-color: #df8299;
   font-weight: bold;
   text-align: center;
   padding: 3%;
@@ -102,11 +102,17 @@ $tab-color: #a22041;
 
 #date-range-value {
   width: 30px;
-  border: none;
-  background: none;
 }
 
-#date-unit {
+.calendar-value {
+  width: 130px;
+}
+
+.spacing {
+  margin-right: 17px;
+}
+
+.transparent {
   border: none;
   background: none;
 }

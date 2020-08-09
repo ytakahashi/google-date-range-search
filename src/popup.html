@@ -22,10 +22,9 @@
         <button type="button" id="past-month" class="btn">
           past month
         </button>
-        <button type="button" id="past-6months" class="btn">
-          past 6 months
+        <button type="button" id="past-year" class="btn">
+          past year
         </button>
-        <button type="button" id="past-year" class="btn">past year</button>
       </div>
 
       <input id="custom" type="radio" name="tab" class="tab-page" />
@@ -36,8 +35,13 @@
         <div class="custom-input-form">
           <form>
             Past
-            <input id="date-range-value" type="number" value="1" />
-            <select id="date-unit" name="date-unit">
+            <input
+              id="date-range-value"
+              type="number"
+              value="1"
+              class="transparent"
+            />
+            <select id="date-unit" name="date-unit" class="transparent">
               <option value="h">hour</option>
               <option value="d">day</option>
               <option value="w">week</option>
@@ -56,14 +60,22 @@
       <div class="tab-content">
         <div class="calendar">
           <label class="calendar-label">
-            From:
-            <input type="date" id="from-date" />
+            <span>From:</span>
+            <input
+              type="date"
+              id="from-date"
+              class="transparent calendar-value"
+            />
           </label>
         </div>
         <div class="calendar">
           <label class="calendar-label">
-            To:
-            <input type="date" id="to-date" />
+            <span class="spacing">To:</span>
+            <input
+              type="date"
+              id="to-date"
+              class="transparent calendar-value"
+            />
           </label>
         </div>
         <button type="button" id="calendar-search" class="btn">Go</button>
