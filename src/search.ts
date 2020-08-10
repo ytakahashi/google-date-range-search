@@ -37,7 +37,6 @@ setOnclickHandler('past-hour', 'qdr:h')
 setOnclickHandler('past-day', 'qdr:d')
 setOnclickHandler('past-week', 'qdr:w')
 setOnclickHandler('past-month', 'qdr:m')
-setOnclickHandler('past-6months', 'qdr:m6')
 setOnclickHandler('past-year', 'qdr:y')
 
 const setToday = (elementId: string) => {
