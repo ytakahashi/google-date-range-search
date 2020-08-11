@@ -6,18 +6,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - name: create dist files
-      run: |
-        npm ci
-        npm run lint:prettier-check
-        npm run webpack
-    - name: Archive generated files
-      uses: actions/upload-artifact@v1
-      with:
-        name: dist
-        path: dist
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: create dist files
+        run: |
+          npm ci
+          npm run lint:prettier-check
+          npm run webpack
+      - name: Archive generated files
+        uses: actions/upload-artifact@v2
+        with:
+          name: google-date-range-search
+          path: dist
