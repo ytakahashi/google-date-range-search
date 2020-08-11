@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - '*'
 
 jobs:
   build:
@@ -21,6 +21,8 @@ jobs:
           npm ci
           npm run lint:prettier-check
           npm run webpack
+      - name: compress
+        run: zip -r google-date-range-search.zip  dist/
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -35,11 +37,11 @@ jobs:
           prerelease: false
       - name: Upload Release Asset
         id: upload-release-asset
-        uses: actions/upload-release-asset@v1.0.1
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/
+          asset_path: google-date-range-search.zip
           asset_name: google-date-range-search
           asset_content_type: application/zip
