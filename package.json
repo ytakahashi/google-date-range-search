@@ -1,7 +1,7 @@
 {
   "name": "google-date-range-search",
   "description": "Google date range search extension",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "ytakahashi",
   "bugs": {
     "url": "https://github.com/ytakahashi/google-date-range-search/issues"

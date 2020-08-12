@@ -1,6 +1,6 @@
 {
   "name": "Google date range search",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Google date range search extension.",
   "manifest_version": 2,
   "icons": {
