@@ -1,5 +1,5 @@
 import './style.scss'
-import { browser } from 'webextension-polyfill-ts'
+import browser from 'webextension-polyfill'
 
 const setTbsParameter = (currentUrl: string, value: string) => {
   let url = new URL(currentUrl)
