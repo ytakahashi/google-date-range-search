@@ -1,9 +1,8 @@
-import { ConfigurationFactory } from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
-const config: ConfigurationFactory = () => {
+const config = (env: any, argv: any) => {
   return {
     mode: 'production',
     entry: {
