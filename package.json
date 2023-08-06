@@ -39,6 +39,8 @@
     "url": "git+ssh://git@github.com/ytakahashi/google-date-range-search.git"
   },
   "scripts": {
+    "clean": "node -e 'fs.rmSync(`./google-date-range-search.zip`, {force:true}); fs.rmSync(`dist`, {recursive:true, force:true})'",
+    "create-package": "npm run clean && webpack && zip -r google-date-range-search.zip dist/ -x '*.DS_Store'",
     "lint:prettier": "prettier --write \"**/*.{js,ts}\"",
     "lint:prettier-check": "prettier --check \"**/*.{js,ts}\"",
     "webpack": "webpack"
