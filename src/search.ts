@@ -23,6 +23,33 @@ const updateTabUrl = async (value: string) => {
   browser.tabs.update(tab.id, { url: newUrl })
 }
 
+type DateRange = {
+  from: string
+  to: string
+}
+
+const storeCustomRange = async (value: DateRange) => {
+  await browser.storage.local.set({ customRange: value })
+}
+
+const getCustomRange = async (): Promise<DateRange> => {
+  const store = await browser.storage.local.get()
+  if (store === undefined || store.customRange === undefined ) {
+    const now = new Date().toISOString()
+    return {
+      from: now,
+      to: now,
+    }
+  }
+  return {
+    from: store.customRange.from,
+    to: store.customRange.to,
+  }
+}
+
+/**
+ * preset.
+ */
 const setOnclickHandler = (id: string, value: string) => {
   const element = document.getElementById(id)
   if (element == null) {
@@ -39,19 +66,22 @@ setOnclickHandler('past-week', 'qdr:w')
 setOnclickHandler('past-month', 'qdr:m')
 setOnclickHandler('past-year', 'qdr:y')
 
-const setToday = (elementId: string) => {
-  const today = new Date()
-  const yyyy = today.getFullYear()
-  const mm = ('0' + (today.getMonth() + 1)).slice(-2)
-  const dd = ('0' + today.getDate()).slice(-2)
-  const element: HTMLInputElement = <HTMLInputElement>(
-    document.getElementById(elementId)
+/**
+ * calendar.
+ */
+const initDateRange = async () => {
+  const customRange = await getCustomRange()
+  const fromElement: HTMLInputElement = <HTMLInputElement>(
+    document.getElementById('from-date')
   )
-
-  if (element == null) {
+  const toElement: HTMLInputElement = <HTMLInputElement>(
+    document.getElementById('to-date')
+  )
+  if (fromElement == null) {
     return
   }
-  element.value = `${yyyy}-${mm}-${dd}`
+  fromElement.valueAsDate = new Date(customRange.from)
+  toElement.valueAsDate = new Date(customRange.to)
 }
 
 const setCalendarOnclickHandler = () => {
@@ -80,13 +110,18 @@ const setCalendarOnclickHandler = () => {
     const to = toSearchQueryString(toDate)
     const value = `cdr:1,cd_min:${from},cd_max:${to}`
     updateTabUrl(value)
+    storeCustomRange({
+      from: fromDate.toISOString(),
+      to: toDate.toISOString(),
+    })
   }
 }
-
-setToday('from-date')
-setToday('to-date')
+initDateRange()
 setCalendarOnclickHandler()
 
+/**
+ * custom.
+ */
 const setCustomRangeFormClickHandler = () => {
   const element = document.getElementById('custom-search')
   if (element == null) {

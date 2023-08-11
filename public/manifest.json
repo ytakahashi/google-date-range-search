@@ -10,6 +10,7 @@
   },
   "permissions": [
     "declarativeContent",
+    "storage",
     "tabs"
   ],
   "action": {
