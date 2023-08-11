@@ -34,7 +34,7 @@ const storeCustomRange = async (value: DateRange) => {
 
 const getCustomRange = async (): Promise<DateRange> => {
   const store = await browser.storage.local.get()
-  if (store === undefined || store.customRange === undefined ) {
+  if (store === undefined || store.customRange === undefined) {
     const now = new Date().toISOString()
     return {
       from: now,
