@@ -2,7 +2,7 @@ import './style.scss'
 import browser from 'webextension-polyfill'
 
 const setTbsParameter = (currentUrl: string, value: string) => {
-  let url = new URL(currentUrl)
+  const url = new URL(currentUrl)
   url.searchParams.set('tbs', value)
   return url.toString()
 }
@@ -15,7 +15,7 @@ const updateTabUrl = async (value: string) => {
   }
 
   const tab = tabs[0]
-  if (tab.url == undefined) {
+  if (tab.url === undefined) {
     return
   }
 
