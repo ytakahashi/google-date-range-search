@@ -1,7 +1,8 @@
+import path from 'node:path'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import path from 'path'
 
+// biome-ignore lint:
 const config = (env: any, argv: any) => {
   return {
     mode: 'production',
