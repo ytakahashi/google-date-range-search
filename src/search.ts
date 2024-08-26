@@ -28,22 +28,31 @@ type DateRange = {
   to: string
 }
 
+const isDateRange = (value: unknown): value is DateRange => {
+  return (
+    typeof value === 'object' &&
+    typeof (value as DateRange).from === 'string' &&
+    typeof (value as DateRange).to === 'string'
+  )
+}
+
 const storeCustomRange = async (value: DateRange) => {
   await browser.storage.local.set({ customRange: value })
 }
 
 const getCustomRange = async (): Promise<DateRange> => {
   const store = await browser.storage.local.get()
-  if (store === undefined || store.customRange === undefined) {
+  if (store === undefined || !isDateRange(store.customRange)) {
     const now = new Date().toISOString()
     return {
       from: now,
       to: now,
     }
   }
+  const storedRange: DateRange = store.customRange
   return {
-    from: store.customRange.from,
-    to: store.customRange.to,
+    from: storedRange.from,
+    to: storedRange.to,
   }
 }
 
