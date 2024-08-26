@@ -48,12 +48,11 @@ const getCustomRange = async (): Promise<DateRange> => {
       from: now,
       to: now,
     }
-  } else {
-    const storedRange: DateRange = store.customRange
-    return {
-      from: storedRange.from,
-      to: storedRange.to,
-    }
+  }
+  const storedRange: DateRange = store.customRange
+  return {
+    from: storedRange.from,
+    to: storedRange.to,
   }
 }
 
