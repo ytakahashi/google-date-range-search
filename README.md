@@ -1,7 +1,7 @@
 # Google Date Range Search Extension
 
-A browser extension that helps you search Google search results within specific date ranges.
-It provides preset date ranges, custom ranges, and a calendar interface for precise date selection.
+A browser extension that helps you search Google within specific date ranges.
+It offers preset date ranges, custom ranges, and a calendar interface for precise date selection.
 
 ![gif image](./image/image.gif)
 
@@ -19,8 +19,8 @@ It provides preset date ranges, custom ranges, and a calendar interface for prec
 
 1. Click the "Custom" tab
 2. Enter a number and select a unit (hours/days/weeks/months/years)
-3. Click "Add to presets"
-4. The custom preset button will appear in the "Preset" tab
+3. Click "Add to Preset"
+4. The custom preset button appears in the "Preset" tab
 5. You can add multiple custom presets
 6. To remove all custom presets, click "clear custom presets" button at the bottom of the "Preset" tab
 
