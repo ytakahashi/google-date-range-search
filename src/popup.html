@@ -6,26 +6,7 @@
       <label class="tab-label" for="preset">
         Preset
       </label>
-      <div class="tab-content">
-        <button type="button" id="all-time" class="btn">
-          all time
-        </button>
-        <button type="button" id="past-hour" class="btn">
-          past hour
-        </button>
-        <button type="button" id="past-day" class="btn">
-          past day
-        </button>
-        <button type="button" id="past-week" class="btn">
-          past week
-        </button>
-        <button type="button" id="past-month" class="btn">
-          past month
-        </button>
-        <button type="button" id="past-year" class="btn">
-          past year
-        </button>
-      </div>
+      <div class="tab-content" id="preset-tab"></div>
 
       <input id="custom" type="radio" name="tab" class="tab-page" />
       <label class="tab-label" for="custom">
@@ -50,6 +31,7 @@
             </select>
           </form>
           <button type="button" id="custom-search" class="btn">Go</button>
+          <button type="button" id="add-to-preset" class="btn">Add To Preset</button>
         </div>
       </div>
 
