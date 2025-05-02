@@ -57,23 +57,215 @@ const getCustomRange = async (): Promise<DateRange> => {
 }
 
 /**
- * preset.
+ * An object representing a custom range with unit.
  */
-const setOnclickHandler = (id: string, value: string) => {
+type CustomRange = {
+  range: number
+  unit: string
+}
+
+/**
+ * Checks if the value is a CustomRange object.
+ *
+ * @param value value
+ * @returns true if the value is a CustomRange object
+ */
+const isPresetRange = (value: unknown): value is CustomRange => {
+  return (
+    typeof value === 'object' &&
+    typeof (value as CustomRange).range === 'number' &&
+    typeof (value as CustomRange).unit === 'string'
+  )
+}
+
+/**
+ * Set empty array as preset ranges.
+ */
+const clearCustomPresetRanges = async () => {
+  await browser.storage.local.set({ presetRanges: [] })
+}
+
+/**
+ * Store custom preset ranges.
+ *
+ * @param value value
+ */
+const storeCustomPresetRanges = async (value: CustomRange[]) => {
+  await browser.storage.local.set({ presetRanges: value })
+}
+
+/**
+ * Retreive custom preset ranges from local storage.
+ *
+ * @returns custom preset ranges
+ */
+const getCustomPresetRanges = async (): Promise<CustomRange[]> => {
+  const store = await browser.storage.local.get()
+  if (store === undefined || !Array.isArray(store.presetRanges)) {
+    return []
+  }
+  const storedRanges: CustomRange[] = store.presetRanges
+  return storedRanges.filter(range => isPresetRange(range)) as CustomRange[]
+}
+
+/**
+ * An object representing a preset button.
+ */
+type PresetButton = {
+  label: string
+  searchQuery: string
+}
+
+/**
+ * Returns an element by id.
+ *
+ * @throws Error if the element is not found
+ * @returns HTMLElement
+ */
+const getElementById = (id: string): HTMLElement => {
   const element = document.getElementById(id)
   if (element == null) {
-    return
+    throw new Error(`Element with id ${id} not found`)
   }
-  element.onclick = () => updateTabUrl(value)
+  return element
 }
 
 // https://support.google.com/websearch/thread/7860817?hl=en
-setOnclickHandler('all-time', 'qdr:a')
-setOnclickHandler('past-hour', 'qdr:h')
-setOnclickHandler('past-day', 'qdr:d')
-setOnclickHandler('past-week', 'qdr:w')
-setOnclickHandler('past-month', 'qdr:m')
-setOnclickHandler('past-year', 'qdr:y')
+const defaultPresets: PresetButton[] = [
+  {
+    label: 'all time',
+    searchQuery: 'qdr:a',
+  },
+  {
+    label: 'past hour',
+    searchQuery: 'qdr:h',
+  },
+  {
+    label: 'past day',
+    searchQuery: 'qdr:d',
+  },
+  {
+    label: 'past week',
+    searchQuery: 'qdr:w',
+  },
+  {
+    label: 'past month',
+    searchQuery: 'qdr:m',
+  },
+  {
+    label: 'past year',
+    searchQuery: 'qdr:y',
+  },
+]
+
+/**
+ * Creates buttons from the given array of preset buttons.
+ *
+ * @param buttons array of buttons
+ * @param idPrefix id prefix for the buttons
+ */
+const createPresetRangeButtons = (
+  buttons: PresetButton[],
+  idPrefix: string
+): void => {
+  buttons.forEach((btn, index) => {
+    const buttonElement = document.createElement('button')
+    buttonElement.type = 'button'
+    buttonElement.className = 'btn'
+    buttonElement.id = `${idPrefix}-${index}`
+    buttonElement.innerText = btn.label
+    buttonElement.onclick = async () => await updateTabUrl(btn.searchQuery)
+
+    const presetTab = getElementById('preset-tab')
+    presetTab.insertAdjacentElement('beforeend', buttonElement)
+  })
+}
+
+/**
+ * Creates a label from a preset range.
+ *
+ * @param customRange range object
+ * @returns label string
+ */
+const createLabelFromRange = (customRange: CustomRange): string => {
+  const { range, unit } = customRange
+  let label = `past ${range} `
+  switch (unit) {
+    case 'h':
+      label += 'hours'
+      break
+    case 'd':
+      label += 'days'
+      break
+    case 'w':
+      label += 'weeks'
+      break
+    case 'm':
+      label += 'months'
+      break
+    case 'y':
+      label += 'years'
+      break
+    default:
+      label += unit
+  }
+  return range > 1 ? label : label.slice(0, -1)
+}
+
+/**
+ * Creates custom preset range buttons.
+ */
+const createCustomPresetRangeButtons = async (): Promise<number> => {
+  const storedPresets = await getCustomPresetRanges()
+  if (storedPresets.length === 0) {
+    return 0
+  }
+
+  const customPresetButtons: PresetButton[] = storedPresets.map(stored => {
+    return {
+      label: createLabelFromRange(stored),
+      searchQuery: `qdr:${stored.unit}${stored.range}`,
+    }
+  })
+  if (customPresetButtons.length === 0) {
+    return 0
+  }
+  createPresetRangeButtons(customPresetButtons, 'custom-preset')
+  return customPresetButtons.length
+}
+
+/**
+ * Creates a button to clear custom preset ranges.
+ */
+const createClearCustomPresetRangeButtons = (): void => {
+  const presetTab = getElementById('preset-tab')
+
+  const hrElement = document.createElement('hr')
+  hrElement.className = 'btn-separator'
+  presetTab.insertAdjacentElement('beforeend', hrElement)
+
+  const buttonElement = document.createElement('button')
+  buttonElement.type = 'button'
+  buttonElement.className = 'btn'
+  buttonElement.id = 'clear-preset'
+  buttonElement.innerText = 'clear custom presets'
+  buttonElement.onclick = async () => {
+    await clearCustomPresetRanges()
+    presetTab.innerHTML = ''
+    createPresetRangeButtons(defaultPresets, 'default-preset')
+  }
+  presetTab.insertAdjacentElement('beforeend', buttonElement)
+}
+
+const renderPresetButtons = async (): Promise<void> => {
+  getElementById('preset-tab').innerHTML = ''
+  createPresetRangeButtons(defaultPresets, 'default-preset')
+  const customs = await createCustomPresetRangeButtons()
+  if (customs > 0) {
+    createClearCustomPresetRangeButtons()
+  }
+}
+renderPresetButtons()
 
 /**
  * calendar.
@@ -132,10 +324,7 @@ setCalendarOnclickHandler()
  * custom.
  */
 const setCustomRangeFormClickHandler = () => {
-  const element = document.getElementById('custom-search')
-  if (element == null) {
-    return
-  }
+  const element = getElementById('custom-search')
 
   element.onclick = () => {
     const valueElement: HTMLInputElement = <HTMLInputElement>(
@@ -156,3 +345,41 @@ const setCustomRangeFormClickHandler = () => {
   }
 }
 setCustomRangeFormClickHandler()
+
+/**
+ * Updates preset settings when 'add-to-preset' button is clicked.
+ */
+const addToCustomPresetsHandler = (): void => {
+  const element = getElementById('add-to-preset')
+  element.onclick = async () => {
+    const valueElement: HTMLInputElement = <HTMLInputElement>(
+      document.getElementById('date-range-value')
+    )
+    const unitElement: HTMLInputElement = <HTMLInputElement>(
+      document.getElementById('date-unit')
+    )
+
+    const range = valueElement.valueAsNumber
+    const unit = unitElement.value
+    if (range === null || unit === null) {
+      return
+    }
+    const value: CustomRange = {
+      range,
+      unit,
+    }
+    const storedRanges = await getCustomPresetRanges()
+    if (
+      storedRanges.some(
+        stored => stored.range === value.range && stored.unit === value.unit
+      )
+    ) {
+      console.log(`${value} already exists in preset ranges`)
+      return
+    }
+    const newRanges = [...storedRanges, value]
+    await storeCustomPresetRanges(newRanges)
+    await renderPresetButtons()
+  }
+}
+addToCustomPresetsHandler()
